@@ -30,7 +30,7 @@ class ToString
      */
     public static function fromByte(int $byte): string
     {
-        if ($byte > 31 && $byte !== 127) {
+        if ($byte > 31 && $byte < 127) {
             return chr($byte);
         }
         return sprintf("x%'.02X", $byte);
@@ -58,7 +58,7 @@ class ToString
 
     /**
      * Convert any value to a readable string.
-     * @param null|bool|int|float|string $value
+     * @param mixed $value
      * @return string
      */
     public static function fromAny($value):string
