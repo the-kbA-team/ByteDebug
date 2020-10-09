@@ -1,0 +1,21 @@
+{
+    "name": "kba-team/byte-debug",
+    "description": "A simple class for debugging bytes by converting them to a printable string.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gregor",
+            "email": "gregor-j@users.noreply.github.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^7.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "kbATeam\\ByteDebug\\": "src"
+        }
+    }
+}
