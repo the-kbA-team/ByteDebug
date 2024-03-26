@@ -50,8 +50,10 @@ class ToString
          */
         $bytes = unpack('C*', $string);
         $result = '';
-        foreach ($bytes as $byte) {
-            $result .= self::fromByte($byte);
+        if (is_array($bytes)) {
+            foreach ($bytes as $byte) {
+                $result .= self::fromByte($byte);
+            }
         }
         return $result;
     }
