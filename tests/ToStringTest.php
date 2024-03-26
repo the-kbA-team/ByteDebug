@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 class ToStringTest extends TestCase
 {
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public static function provideFromByte(): array
     {
@@ -281,14 +281,14 @@ class ToStringTest extends TestCase
      * @param string $expected
      * @dataProvider provideFromByte
      */
-    public function testFromByte(int $byte, string $expected)
+    public function testFromByte(int $byte, string $expected): void
     {
         $actual = ToString::fromByte($byte);
         static::assertSame($expected, $actual);
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public static function provideFromBoolean(): array
     {
@@ -303,14 +303,14 @@ class ToStringTest extends TestCase
      * @param string $expected
      * @dataProvider provideFromBoolean
      */
-    public function testFromBoolean(bool $bool, string $expected)
+    public function testFromBoolean(bool $bool, string $expected): void
     {
         $actual = ToString::fromBoolean($bool);
         static::assertSame($expected, $actual);
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function provideFromString(): array
     {
@@ -325,14 +325,14 @@ class ToStringTest extends TestCase
      * @param string $expected
      * @dataProvider provideFromString
      */
-    public function testFromString(string $string, string $expected)
+    public function testFromString(string $string, string $expected): void
     {
         $actual = ToString::fromString($string);
         static::assertSame($expected, $actual);
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public static function provideFromAny(): array
     {
@@ -355,7 +355,7 @@ class ToStringTest extends TestCase
      * @param string $expected
      * @dataProvider provideFromAny
      */
-    public function testFromAny($mixed, string $expected)
+    public function testFromAny($mixed, string $expected): void
     {
         $actual = ToString::fromAny($mixed);
         static::assertSame($expected, $actual);
