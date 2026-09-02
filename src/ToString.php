@@ -13,7 +13,7 @@ class ToString
      * @param bool $value
      * @return string
      */
-    public static function fromBoolean(bool $value):string
+    public static function fromBoolean(bool $value): string
     {
         if ($value === false) {
             return 'false';
@@ -37,7 +37,7 @@ class ToString
          * see PHP escape sequences:
          * https://www.php.net/manual/regexp.reference.escape.php
          */
-        switch($byte) {
+        switch ($byte) {
             case 7:
                 // alarm, that is, the BEL character (hex 07)
                 return '\\a';
@@ -68,7 +68,7 @@ class ToString
      * @param string $string
      * @return string
      */
-    public static function fromString(string $string):string
+    public static function fromString(string $string): string
     {
         /**
          * Convert string to its byte array and process each byte.
@@ -88,7 +88,7 @@ class ToString
      * @param mixed $value
      * @return string
      */
-    public static function fromAny($value):string
+    public static function fromAny($value): string
     {
         if (is_bool($value)) {
             return self::fromBoolean($value);

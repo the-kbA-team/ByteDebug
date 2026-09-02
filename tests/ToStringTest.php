@@ -316,7 +316,7 @@ class ToStringTest extends TestCase
     {
         return [
             ['hello world!', 'hello world!'],
-            ['hello'.chr(10).'world!', 'hello\\nworld!']
+            ['hello' . chr(10) . 'world!', 'hello\\nworld!']
         ];
     }
 
@@ -338,7 +338,7 @@ class ToStringTest extends TestCase
     {
         return [
             ['hello world!', 'hello world!'],
-            ['hello'.chr(10).'world!', 'hello\\nworld!'],
+            ['hello' . chr(10) . 'world!', 'hello\\nworld!'],
             [71746, '71746'],
             [2.7, '2.7'],
             [null, 'NULL'],
