@@ -30,7 +30,7 @@ manifest=$(mktemp .composer-run.XXXXXXXX.json)
 cp composer.json "$manifest"
 mkdir -p "$COMPOSER_CACHE_DIR"
 cache_directory=$(CDPATH= cd -- "$COMPOSER_CACHE_DIR" && pwd -P)
-docker run --rm --entrypoint cat "$COMPOSER_IMAGE" /usr/bin/composer > "$temporary/composer"
+docker run --rm --entrypoint sh "$COMPOSER_IMAGE" -ec 'exec cat "$(command -v composer)"' > "$temporary/composer"
 
 set -- docker run --rm --init \
     --volume "$(pwd):/app" --workdir /app \
