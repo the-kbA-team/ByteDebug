@@ -18,18 +18,39 @@ Use:
 ```php
 <?php
 echo \kbATeam\ByteDebug\ToString::fromString('hello'.chr(10).'world!');
-//output: hellox0Aworld!
+// output: hello\nworld!
 ```
 
 ## Development
 
-All development commands (install, test, lint, analyze, beautify, sniff, audit,
-validate) run via Docker through the `Makefile`, so no local PHP installation is
-needed. Run `make help` to list all targets. Most targets require `PHP_VERSION`,
-e.g.:
+Development commands run through the Docker-backed `Makefile`; no local PHP
+installation is needed. PHP `^8.1` is supported, and CI tests PHP 8.1 and 8.5
+with normal and lowest dependencies. During the required-check transition, CI
+also retains the existing PHP 8.2–8.4 checks. Run `make help` for all targets.
 
 ```sh
-make install PHP_VERSION=8.1
+make check PHP_VERSION=8.1
+make check PHP_VERSION=8.5 DEPENDENCIES_LOWEST=1
 ```
+
+`check` resolves dependencies, runs lint, PHPUnit, PHPStan and PHPCS, then
+audits the same temporary lockfile. `install` resolves dependencies but removes
+its temporary lockfile; a later standalone `audit` does not verify that earlier
+snapshot. `clean` removes `vendor/` and the PHPUnit cache, not a pre-existing
+lockfile. Composer uses an isolated copy of the manifest in the project root;
+the checked-in Composer configuration is not changed.
+
+The Composer executable comes from `COMPOSER_IMAGE` (default `composer:2`);
+Composer and QA run under the requested PHP image. The container installs
+`git` and `unzip` for dependency resolution. Proxy environment variables and an
+optional `CA_CERT_FILE` are forwarded, and `COMPOSER_CACHE_DIR` controls the
+Composer cache.
+If `config.platform.php` is configured, it must match the actual PHP patch
+version; the workflow refuses to resolve against a simulated PHP version.
+
+Changes to `main` use pull requests and squash merges. Issue branches should be
+named `<issue-number>-<title-slug>`. The force-push ruleset excludes the broader
+glob `[0-9]*-*`, which also matches some names outside that convention; it
+does not enforce the PR source. Main is protected separately.
 
 [license-mit]: https://img.shields.io/badge/license-MIT-blue.svg
