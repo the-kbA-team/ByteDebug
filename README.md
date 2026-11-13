@@ -39,14 +39,17 @@ its temporary lockfile; a later standalone `audit` does not verify that earlier
 snapshot. `clean` removes `vendor/` and the PHPUnit cache, not a pre-existing
 lockfile. Composer uses an isolated copy of the manifest in the project root;
 the checked-in Composer configuration is not changed.
+The host needs `flock` to serialize install, check, audit and clean operations
+that share `vendor/`.
 
 The Composer executable comes from `COMPOSER_IMAGE` (default `composer:2`);
 Composer and QA run under the requested PHP image. The container installs
 `git` and `unzip` for dependency resolution. Proxy environment variables and an
 optional `CA_CERT_FILE` are forwarded, and `COMPOSER_CACHE_DIR` controls the
 Composer cache.
-If `config.platform.php` is configured, it must match the actual PHP patch
-version; the workflow refuses to resolve against a simulated PHP version.
+If `config.platform.php` is present, only the isolated manifest copy uses the
+actual PHP patch version; other platform settings and the checked-in manifest
+remain unchanged.
 
 Changes to `main` use pull requests and squash merges. Issue branches should be
 named `<issue-number>-<title-slug>`. The force-push ruleset excludes the broader
